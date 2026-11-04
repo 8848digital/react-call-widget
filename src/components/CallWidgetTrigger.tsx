@@ -36,6 +36,13 @@ interface CallWidgetTriggerProps {
   contactName?: string | null;
 
   // --- External UI Callbacks ---
+  /**
+   * Called when the Call button is clicked, before the built-in flow starts.
+   * Resolve `true` to continue with the built-in flow (confirmation modal, then `makeCall`).
+   * Resolve `false` when the host app has handled the click itself (for example, with its own form).
+   * While it is pending, the button shows its pending state and ignores clicks.
+   */
+  onBeforeCall?: () => boolean | Promise<boolean>;
   onEdit?: () => void;
   onScheduleReminder?: () => void;
   onMute?: () => void;
@@ -56,8 +63,9 @@ interface CallWidgetTriggerProps {
 /**
  * Inner logic for the CallWidgetTrigger that uses context and state hooks.
  */
-const CallWidgetInner: React.FC<Pick<CallWidgetTriggerProps, "contactName" | "onEdit" | "onScheduleReminder" | "onMute" | "onToggleSpeaker" | "buttonLabel" | "icon" | "btnClassName" | "variant">> = ({
+const CallWidgetInner: React.FC<Pick<CallWidgetTriggerProps, "contactName" | "onBeforeCall" | "onEdit" | "onScheduleReminder" | "onMute" | "onToggleSpeaker" | "buttonLabel" | "icon" | "btnClassName" | "variant">> = ({
   contactName,
+  onBeforeCall,
   onEdit,
   onScheduleReminder,
   onMute,
@@ -85,8 +93,24 @@ const CallWidgetInner: React.FC<Pick<CallWidgetTriggerProps, "contactName" | "on
     handleEndIncomingCall,
   } = useCallWidgetLogic();
 
-  const toggleCall = () => {
-    handleCallClick();
+  const [isCheckingCall, setIsCheckingCall] = useState(false);
+  const isBusy = isCallPending || isCheckingCall;
+
+  const toggleCall = async () => {
+    if (isBusy) return;
+    if (!onBeforeCall) {
+      handleCallClick();
+      return;
+    }
+
+    setIsCheckingCall(true);
+    try {
+      if (await onBeforeCall()) handleCallClick();
+    } catch (err) {
+      console.error("onBeforeCall failed:", err);
+    } finally {
+      setIsCheckingCall(false);
+    }
   };
 
   const finalIcon = icon || <IconPhone size={20} color="#175353" />;
@@ -97,16 +121,16 @@ const CallWidgetInner: React.FC<Pick<CallWidgetTriggerProps, "contactName" | "on
         <button
           className={`${btnClassName}`}
           onClick={toggleCall}
-          disabled={isCallPending}
+          disabled={isBusy}
           type="button"
           title={buttonLabel}
         >
-          {isCallPending ? "..." : finalIcon}
+          {isBusy ? "..." : finalIcon}
         </button>
       ) : (
         <div 
-          className={`contact-button ${btnClassName} ${isCallPending ? "cw-pending" : ""}`} 
-          onClick={!isCallPending ? toggleCall : undefined}
+          className={`contact-button ${btnClassName} ${isBusy ? "cw-pending" : ""}`} 
+          onClick={!isBusy ? toggleCall : undefined}
           title={buttonLabel}
         >
           <div className="contact-icon-wrapper">
@@ -210,6 +234,7 @@ export const CallWidgetTrigger: React.FC<CallWidgetTriggerProps> = (props) => {
     >
       <CallWidgetInner 
         contactName={props.contactName}
+        onBeforeCall={props.onBeforeCall}
         onEdit={props.onEdit}
         onScheduleReminder={props.onScheduleReminder}
         onMute={props.onMute}

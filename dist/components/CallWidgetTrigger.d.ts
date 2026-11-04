@@ -13,6 +13,13 @@ interface CallWidgetTriggerProps {
     /** Manual override for socket connection status (useful in pass-through mode) */
     socketConnected?: boolean;
     contactName?: string | null;
+    /**
+     * Called when the Call button is clicked, before the built-in flow starts.
+     * Resolve `true` to continue with the built-in flow (confirmation modal, then `makeCall`).
+     * Resolve `false` when the host app has handled the click itself (for example, with its own form).
+     * While it is pending, the button shows its pending state and ignores clicks.
+     */
+    onBeforeCall?: () => boolean | Promise<boolean>;
     onEdit?: () => void;
     onScheduleReminder?: () => void;
     onMute?: () => void;

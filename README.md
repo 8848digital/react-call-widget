@@ -81,6 +81,7 @@ const MyComponent = ({ lastSocketMessage, isConnected }) => {
 | `links` | `MakeCallLink[]` | `[]` | Records to associate the call with. |
 | `socketPayload` | `CallSocketPayload` | Optional | Raw socket event from host app. |
 | `socketConnected` | `boolean` | Optional | Manual override for socket status. |
+| `onBeforeCall` | `() => boolean \| Promise<boolean>` | Optional | Runs when the Call button is clicked. Resolve `true` to open the built-in confirmation and call flow, or `false` when the host app handled the click (for example, with its own call log form). The button shows its pending state until it resolves. |
 | `onEdit` | `() => void` | Optional | Callback when user clicks 'Edit Notes' after a call. |
 | `onScheduleReminder` | `() => void` | Optional | Callback when user clicks 'Schedule Reminder'. |
 

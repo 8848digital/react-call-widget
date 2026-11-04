@@ -1,6 +1,6 @@
 {
   "name": "react-call-widget",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Decoupled Call Widget for React — supports outgoing calls, incoming calls, and real-time status via Exotel/socket.",
   "license": "MIT",
   "author": "8848 Digital",
