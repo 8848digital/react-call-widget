@@ -1,0 +1,192 @@
+/* Exact copy of the host app's call-received-modal.css */
+
+.call-received-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 24px 0;
+  /* Padding from bottom */
+  min-height: 100px;
+  background-color: #ffffff;
+}
+
+.call-received-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  width: 100%;
+}
+
+.call-received-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 40px;
+  width: 100%;
+}
+
+.call-details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  /* margin-top: 8px; */
+  width: 100%;
+  padding: 0 20px;
+}
+
+.call-phone-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  /* Balanced with name */
+  color: #2b2b2b;
+  margin-top: 12px;
+}
+
+.call-label {
+  color: #8c8c8c;
+  /* Gray label */
+  font-weight: 400;
+}
+
+.call-phone {
+  color: #2b2b2b;
+  font-weight: 500;
+}
+
+.call-sid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.call-sid-value {
+  color: #757575;
+  font-family: monospace;
+  font-size: 11px;
+  word-break: break-all;
+  text-align: center;
+}
+
+.call-status-badge {
+  padding: 8px 18px;
+  border-radius: 20px;
+  color: #ffffff;
+  background-color: #2196f3;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+}
+
+.caller-name {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 26px;
+  /* Larger as in image */
+  color: #2b2b2b;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.calling-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.calling-text {
+  font-size: 18px;
+  font-weight: 500;
+  color: #4CAF50;
+  /* Green as in image */
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.call-duration {
+  font-size: 18px;
+  font-weight: 400;
+  color: #2b2b2b;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.call-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.call-control-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50% !important;
+  background-color: #f8f9fa !important;
+  border: 1px solid #f0f0f0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0 !important;
+  min-width: 0 !important;
+}
+
+.call-control-button:hover {
+  background-color: #f0f0f0 !important;
+  transform: translateY(-2px);
+}
+
+.call-control-button:active {
+  transform: scale(0.95);
+}
+
+.microphone-button {
+  background-color: #f2f5f6;
+}
+
+.microphone-button:hover {
+  background-color: #e8ecef;
+}
+
+.end-call-button {
+  width: 64px;
+  height: 64px;
+  background-color: #ff0000;
+}
+
+.end-call-button:hover {
+  background-color: #e60000;
+}
+
+.speaker-button {
+  background-color: #f2f5f6;
+}
+
+.speaker-button:hover {
+  background-color: #e8ecef;
+}

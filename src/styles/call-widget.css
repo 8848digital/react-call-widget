@@ -1,0 +1,204 @@
+/* ─── Base Modal Overlay (shared) ──────────────────────────────────────────── */
+
+.cw-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cw-modal-container {
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  overflow: hidden;
+  animation: cw-fade-in 0.18s ease;
+}
+
+@keyframes cw-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cw-modal-header {
+  padding: 10px 16px;
+  position: relative;
+  min-height: 48px;
+  display: block; /* Removed flex to allow internal headers full control */
+}
+
+.cw-modal-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 0.5px;
+  background-color: #dfe9ed;
+}
+
+.cw-no-header-border .cw-modal-header::after {
+  display: none;
+}
+
+.cw-modal-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: #2b2b2b;
+  width: 100%;
+}
+
+.call-received-header,
+.incoming-call-header {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between; /* Spread across as requested */
+  width: 100%;
+}
+
+.cw-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #757575;
+  border-radius: 50%;
+  transition: background 0.15s;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: 16px;
+  top: 10px; /* Aligned with header padding */
+  z-index: 10;
+}
+
+.cw-modal-close:hover {
+  background-color: #f2f5f6;
+  color: #2b2b2b;
+}
+
+.cw-modal-body {
+  padding: 0;
+}
+
+/* ─── Confirmation Modal ─────────────────────────────────────────────────────── */
+
+.cw-confirmation-container {
+  max-width: 400px !important;
+}
+
+.cw-confirmation-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cw-confirmation-message {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+}
+
+.cw-confirmation-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────────────────── */
+
+.cw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.cw-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cw-btn-primary {
+  width: 90px;
+  height: 34px;
+  background-color: #1b7a6c;
+  color: #ffffff;
+}
+
+.cw-btn-primary:hover:not(:disabled) {
+  background-color: #1b7a6c;
+}
+
+.cw-btn-secondary {
+  width: 90px;
+  height: 34px;
+  background-color: #f2f5f6;
+  color: #2b2b2b;
+}
+
+.cw-btn-secondary:hover:not(:disabled) {
+  background-color: #e4eaec;
+}
+
+.cw-btn-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Pending State ─────────────────────────────────────────────────────────── */
+
+.cw-pending {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+/* ─── Modal Positioning ─────────────────────────────────────────────────────── */
+
+.cw-modal-overlay.cw-fixed {
+  background-color: transparent;
+  pointer-events: none;
+  /* Let clicks pass through to background */
+}
+
+.cw-modal-overlay.cw-fixed .cw-modal-container {
+  pointer-events: auto;
+  /* Re-enable clicks for modal dialog */
+  position: fixed;
+  z-index: 1001;
+}
+
+.cw-pos-bottom-left .cw-modal-container {
+  bottom: 24px;
+  left: 24px;
+}
+
+.cw-pos-bottom-right .cw-modal-container {
+  bottom: 24px;
+  right: 24px;
+}
